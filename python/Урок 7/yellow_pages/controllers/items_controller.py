@@ -8,24 +8,40 @@ class ItemsController:
   def index(self):
     items = Item.all()
 
-    view = ItemsView(items)
+    view = ItemsView(Item.FIELDS, items)
     view.render()
 
 
   def new(self):
     attrs = {
-      'id': None,
       'name': input('Введите фамилию и инициалы: '),
       'phone': input('Введите номер телефона: '),
       'address': input('Введите адрес: '),
     }
 
     item = Item(attrs)
-    item.save()
+    item.create()
 
     view = NewItemView(item)
     view.render()
 
+    # redirect to
+    self.index()
+
 
   def edit(self):
-    number = int(input('Введите № записи: '))
+    id = int(input('Введите № записи: '))
+    item = Item.find(id)
+
+    attrs = {
+      'name': input(f'Введите фамилию и инициалы [{item.name}]: '),
+      'phone': input(f'Введите номер телефона [{item.phone}]: '),
+      'address': input(f'Введите адрес [{item.address}]: '),
+    }
+    item.update(attrs)
+
+    view = EditItemView(item)
+    view.render()
+
+    # redirect to
+    self.index()

@@ -1,6 +1,3 @@
-import collections
-
-
 class Item:
   FIELDS = {
     'id': '№',
@@ -24,24 +21,28 @@ class Item:
     },
   ]
 
+
   @classmethod
   def all(klass):
     collection = [klass(item) for item in klass.storage]
+    return collection
 
-    return {
-      'fields': klass.FIELDS,
-      'collection': collection
-    }
+
+  @classmethod
+  def find(klass, id):
+    item = klass.__raw_find(klass, id)
+    return klass(item)
 
 
   def __init__(self, attrs):
-    self.id = attrs['id']
+    self.id = attrs.get('id')
+
     self.name = attrs['name']
     self.phone = attrs['phone']
     self.address = attrs['address']
 
 
-  def save(self):
+  def create(self):
     self.id = len(self.storage) + 1
 
     self.storage.append({
@@ -50,3 +51,15 @@ class Item:
       'phone': self.phone,
       'address': self.address,
     })
+
+
+  def update(self, attrs):
+    item = self.__raw_find(self.id)
+
+    for key in ['name', 'phone', 'address']:
+      if attrs[key]:
+        item[key] = attrs[key]
+
+
+  def __raw_find(self, id):
+    return next(item for item in self.storage if item['id'] == id)

@@ -7,8 +7,7 @@ print('')
 items_controller.index()
 
 while True:
-  print('')
-  print('Возможные действия: "index", "new". TODO "edit", "export", "import".')
+  print('\nВозможные действия: "index", "new", "edit". TODO "export", "import".')
   route = input('Введите действие: ')
   print('')
 
