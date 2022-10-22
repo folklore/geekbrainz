@@ -30,8 +30,9 @@ class Item:
 
   @classmethod
   def find(klass, id):
-    item = klass.__raw_find(klass, id)
-    return klass(item)
+    if id in klass.__ids(klass):
+      item = klass.__raw_find(klass, id)
+      return klass(item)
 
 
   def __init__(self, attrs):
@@ -43,7 +44,7 @@ class Item:
 
 
   def create(self):
-    self.id = len(self.storage) + 1
+    self.id = max(self.__ids()) + 1
 
     self.storage.append({
       'id': self.id,
@@ -61,5 +62,13 @@ class Item:
         item[key] = attrs[key]
 
 
+  def destroy(self):
+    Item.storage = [item for item in self.storage if item['id'] != self.id]
+
+
   def __raw_find(self, id):
     return next(item for item in self.storage if item['id'] == id)
+
+
+  def __ids(self):
+    return [item['id'] for item in self.storage]
