@@ -1,0 +1,24 @@
+Genealogical
+  Tree
+    build
+    analysis
+    show
+    add_node
+    add_edge
+
+
+  Node
+    Male
+    Female
+
+
+  Edge (link)
+    type:
+      :husband
+      :wife
+      :parent
+      :child
+
+
+  Analysis
+    run
