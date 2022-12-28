@@ -7,8 +7,7 @@ print('')
 items_controller.index()
 
 while True:
-  print('')
-  print('Возможные действия: "index", "new". TODO "edit", "export", "import".')
+  print('\nВозможные действия: "index", "new", "edit", "delete". TODO "export", "import".')
   route = input('Введите действие: ')
   print('')
 
@@ -21,6 +20,9 @@ while True:
   elif route == 'edit':
     items_controller.edit()
 
+  elif route == 'delete':
+    items_controller.delete()
+
   elif route == 'export':
     export_items_controller = ExportItemsController()
     export_items_controller.run()
@@ -28,6 +30,9 @@ while True:
   elif route == 'import':
     import_items_controller = ImportItemsController()
     import_items_controller.run()
+
+  elif route == 'exit':
+    exit()
 
   else:
     print('Укажите действие из списка')

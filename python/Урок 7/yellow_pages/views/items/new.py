@@ -4,4 +4,4 @@ class NewItemView:
 
 
   def render(self):
-    print(f'Запись № {self.item.id} успешно добавлена!')
+    print(f'\nЗапись № {self.item.id} успешно добавлена!\n')

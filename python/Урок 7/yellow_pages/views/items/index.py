@@ -1,19 +1,20 @@
 class ItemsView:
-  def __init__(self, items):
+  def __init__(self, fields, items):
+    self.fields = fields
     self.items = items
 
 
   def render(self):
     table_head = ' | '.join([
-      self.items['fields']['id'].center(3),
-      self.items['fields']['name'].center(20),
-      self.items['fields']['phone'].center(12),
-      self.items['fields']['address'].center(40)
+      self.fields['id'].center(3),
+      self.fields['name'].center(20),
+      self.fields['phone'].center(12),
+      self.fields['address'].center(40)
     ])
 
     print(table_head)
 
-    for item in self.items['collection']:
+    for item in self.items:
       table_row = ' | '.join([
         str(item.id).center(3),
         item.name.ljust(20),
